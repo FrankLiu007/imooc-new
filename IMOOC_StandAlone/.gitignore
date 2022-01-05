@@ -1,0 +1,17 @@
+*/bin/
+*/obj/
+x86/Debug/*.exe
+x86/Debug/*.pdb
+x86/Debug/*.mp4
+x86/Debug/*.jpg
+x86/Debug/*.vshost.exe.*
+x86/Debug/*.exe.Config
+x86/Debug/debug.log
+x86/Debug/Interop.Shell32.dll
+x86/Debug/DigitalOfficePro.Html5PointSdk.dll
+packages/*
+/.vs/IMOOC/v14/.suo
+
+/x86/Release
+/x86/Debug/LoginInfo.kimmie
+/IMOOC.VC.db

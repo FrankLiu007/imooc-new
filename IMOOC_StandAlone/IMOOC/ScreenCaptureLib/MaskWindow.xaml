@@ -1,0 +1,13 @@
+﻿<Window x:Class="ScreenCaptureLib.MaskWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MaskWindow" Height="700" Width="900"
+        WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize"
+         ShowInTaskbar="False"      Cursor="Cross" Loaded="Window_Loaded"  >
+    <Canvas Background="Transparent" Name="MainMask"  MouseLeftButtonDown="MainMask_MouseLeftButtonDown" MouseUp="MainMask_MouseUp" MouseMove="MainMask_MouseMove"  >
+        <Rectangle Name="LeftMask"  Fill="Gray" Opacity="0.5"  />
+        <Rectangle Name="RightMask" Fill="Gray" Opacity="0.5"  />
+        <Rectangle Name="TopMask" Fill="Gray" Opacity="0.5"  />
+        <Rectangle Name="BottomMask" Fill="Gray" Opacity="0.5" />
+    </Canvas>
+</Window>

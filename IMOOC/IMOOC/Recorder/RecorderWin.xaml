@@ -1,0 +1,351 @@
+﻿<Window x:Class="IMOOC.Recorder.RecorderWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IMOOC.Recorder"       
+        mc:Ignorable="d"
+        Title="RecorderWin" Height="496" Width="700" Loaded="Window_Loaded" MouseDown="Window_MouseDown"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" BorderThickness="3" BorderBrush="DarkGray">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="ComboBox">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#d9d9d9"/>
+                <Setter Property="Margin" Value="0,0,12,0"/>
+                <Setter Property="Height" Value="32"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="10,0,0,0"/>
+            </Style>
+            <ControlTemplate TargetType="CheckBox" x:Key="CheckBoxTemplate">
+                <Border Width="82" Height="40" BorderThickness="1" x:Name="CheckBorder">
+                    <Grid Width="80" Height="40" Name="checkGrid">
+                        <Label Margin="0" Content="{TemplateBinding ToolTip}" Width="80"/>
+                        <Viewbox Width="16" Height="16" HorizontalAlignment="Right"  VerticalAlignment="Bottom">
+                            <ContentControl BorderThickness="0" Content="{TemplateBinding Content}" Name="checkViewBox" />
+                        </Viewbox>
+                    </Grid>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="CheckBorder"  Property="BorderBrush" Value="#0391db"/>
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter TargetName="checkViewBox" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="CheckBorder"  Property="BorderBrush" Value="#0391db"/>
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="False">
+                        <Setter TargetName="checkViewBox" Property="Visibility" Value="Collapsed"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <ControlTemplate TargetType="Button" x:Key="ImgTxtBtnTemplate">
+                <Grid Name="ImgTxtBtnGrid" Background="#0391db">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Viewbox Margin="6,5,13,5" Width="25">
+                        <ContentControl Content="{TemplateBinding Content}"/>
+                    </Viewbox>
+                    <TextBlock Name="text" Text="{TemplateBinding ToolTip}" Foreground="{TemplateBinding Foreground}" FontSize="15" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                </Grid>
+            </ControlTemplate>
+            <ControlTemplate TargetType="Button" x:Key="ImgTxtBtnTemplate1">
+                <Grid Name="ImgTxtBtnGrid" Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Viewbox Margin="6,5,8,5" Width="25">
+                        <ContentControl Content="{TemplateBinding Content}"/>
+                    </Viewbox>
+                    <TextBlock Name="text" Text="{TemplateBinding ToolTip}" Foreground="{TemplateBinding Foreground}" FontSize="15" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                </Grid>
+            </ControlTemplate>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="141*"/>
+            <ColumnDefinition Width="553*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="443*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#0391db">
+            <Button Margin="20,0,0,0" Template="{DynamicResource ImgTxtBtnTemplate}" Content="{DynamicResource YinPin}" ToolTip="课程设置" Foreground="White" HorizontalAlignment="Left" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Background="#F5F6F7">
+            <StackPanel Orientation="Vertical">
+                <StackPanel.Resources>
+                    <ControlTemplate x:Key="ImageTextBtn" TargetType="Button" >
+                        <Grid x:Name="ImgTxtBtnGrid" Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Margin="9,5,3,5" Width="25">
+                                <ContentControl Content="{TemplateBinding Content}"/>
+                            </Viewbox>
+                            <TextBlock Name="text" Text="{TemplateBinding ToolTip}" Foreground="{TemplateBinding Foreground}" FontSize="15" Grid.Column="1" VerticalAlignment="Center" Margin="-6,0,6,0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ImgTxtBtnGrid"  Property="Background" Value="DarkGray"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="text" Property="Foreground" Value="DarkGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </StackPanel.Resources>
+
+                <Button x:Name="GeneralSettings" ToolTip="通用设置" Click="GeneralSettings_Click" Template="{StaticResource ImageTextBtn}" Height="50" Content="{DynamicResource General}" Background="#F5F6F7" Foreground="Black"  />
+                <Button x:Name="SoundSettings" ToolTip="声音设置" Click="SoundSettings_Click" Template="{StaticResource ImageTextBtn}" Height="50" Content="{DynamicResource Sy}" Background="#F5F6F7" Foreground="Black"  />
+                <Button x:Name="VideoSettings" ToolTip="视频设置" Click="VideoSettings_Click" Template="{StaticResource ImageTextBtn}" Height="50" Content="{DynamicResource Sp}" Background="#F5F6F7" Foreground="Black"  />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid x:Name="GeneralSettingsGrid" Margin="40,28,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="280*"/>
+                    <ColumnDefinition Width="233*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="49*"/>
+                    <RowDefinition Height="89*"/>
+                    <RowDefinition Height="91*"/>
+                    <RowDefinition Height="42*"/>
+                    <RowDefinition Height="77*"/>
+                    <RowDefinition Height="66*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Margin" Value="30,0,0,0"/>
+                                <Setter Property="Background" Value="#F8F8F8"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <CheckBox Template="{DynamicResource CheckBoxTemplate}" Margin="20,0,0,0"  ToolTip="录制板书" Content="{DynamicResource Gx}" IsChecked="True" IsEnabled="False"/>
+                        <CheckBox Template="{DynamicResource CheckBoxTemplate}" Margin="30,0,0,0" ToolTip="录制PPT"  Content="{DynamicResource Gx}" IsChecked="True" IsEnabled="False"/>
+                        <CheckBox Template="{DynamicResource CheckBoxTemplate}" Margin="30,0,0,0" Name="CheckBoxaudio"  ToolTip="录制声音" Content="{DynamicResource Gx}" IsChecked="True" IsEnabled="False"/>
+                        <CheckBox Template="{DynamicResource CheckBoxTemplate}" Margin="30,0,0,0" Name="CheckBoxVideo" ToolTip="录制视频" Content="{DynamicResource Gx}" Click="CheckBoxVideo_Click"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Label Width="80" Height="35" HorizontalAlignment="Left" VerticalAlignment="Top" Content="课 程 名" FontSize="15" Margin="0,10,0,0"/>
+                    <TextBox x:Name="CourseNameTextBox" Width="180" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,10"/>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Label Width="80" Height="35" HorizontalAlignment="Left" VerticalAlignment="Top" Content="保存路径" FontSize="15" Margin="0,10,0,0"/>
+                    <TextBox x:Name="SavePathTextBox" Width="180" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,10"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Button x:Name="BrowseBtn" Content="浏览" Width="60" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="1" BorderBrush="#b5b4b4" Foreground="Black" FontSize="15"  Margin="10,0,0,10" Click="SaveBrower_Click"/>
+                </Grid>
+                <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" Height="20">
+                        <CheckBox x:Name="CloseAllOldCourseCheckBox" Click="CloseAllOldCourseCheckBox_Click" Content="关闭所有旧课" VerticalAlignment="Center" Margin="80,0,0,0"/>
+                        <CheckBox x:Name="ClearBanshuCheckBox" Click="ClearBanshuCheckBox_Click" Content="清除当前板书" VerticalAlignment="Center" Margin="60,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                    <Grid Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Button Width="100"   Content="开始" Name="buttonStart"  Click="buttonStart_Click" HorizontalAlignment="Left" Margin="60,0,0,0" Background="#0391db" BorderThickness="0" BorderBrush="#0391db" Foreground="White" IsDefault="True"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Button Width="100" Background="White" Content="退出" BorderBrush="#d1d1d1" Name="buttonStop" HorizontalAlignment="Left" Margin="-20,0,0,0" Click="buttonStop_Click"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Label Width="auto" Margin="30,0,30,50" Name="VideoWnd"/>
+                </Grid>
+                
+            </Grid>
+            <Grid x:Name="VideoSettingsGrid" IsEnabled="False" Visibility="Hidden" Margin="40,22,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="11*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="48*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Label HorizontalAlignment="Left" Content="摄像头"/>
+                        <ComboBox Name="comboBoxCamera" HorizontalAlignment="Right" Width="200" SelectionChanged="comboBoxCamera_SelectionChanged"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Label HorizontalAlignment="Left" Content="分辨率"/>
+                        <ComboBox Name="comboBoxResolution" HorizontalAlignment="Right" Width="200" />
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Label HorizontalAlignment="Left" Content="帧速率"/>
+                        <ComboBox Name="comboBoxFrameRate" HorizontalAlignment="Right" Width="200"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid x:Name="SoundSettingsGird" Margin="40,22,0,0" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="11*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="48*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Label HorizontalAlignment="Left" Content="录音器"/>
+                        <ComboBox Name="comboBoxSound"  HorizontalAlignment="Right"  Width="200"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Label HorizontalAlignment="Left" Content="音频通道"/>
+                        <ComboBox Name="comboBoxChannels" HorizontalAlignment="Right" Width="200" />
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Label HorizontalAlignment="Left" Content="采样频率"/>
+                        <ComboBox Name="comboBoxSampleRate" HorizontalAlignment="Right" Width="200"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="162*"/>
+            <ColumnDefinition Width="185*"/>
+            <ColumnDefinition Width="99*"/>
+            <ColumnDefinition Width="248*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="51*"/>
+            <RowDefinition Height="64*"/>
+            <RowDefinition Height="46*"/>
+            <RowDefinition Height="235*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="44*"/>
+        </Grid.RowDefinitions>-->
+        <!--<Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Background="#0391db">
+            <Button Margin="20,0,0,0" Template="{DynamicResource ImgTxtBtnTemplate}" Content="{DynamicResource YinPin}" ToolTip="课程设置" Foreground="White" HorizontalAlignment="Left" />
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="6">
+            
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" >
+            <Button Margin="30,10,0,0" Template="{DynamicResource ImgTxtBtnTemplate1}" Content="{DynamicResource Lzxx}" ToolTip="录制选项"  HorizontalAlignment="Left"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="2">
+            <Label Width="auto" Margin="30,0" Name="VideoWnd"/>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" >
+            <StackPanel Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="Margin" Value="30,0,0,0"/>
+                        <Setter Property="Background" Value="#F8F8F8"/>
+                    </Style>
+                </StackPanel.Resources>
+                <CheckBox Template="{DynamicResource CheckBoxTemplate}" Margin="30,0,0,0"  ToolTip="录制板书" Content="{DynamicResource Gx}" IsChecked="True" IsEnabled="False"/>
+                <CheckBox Template="{DynamicResource CheckBoxTemplate}" Margin="30,0,0,0" ToolTip="录制PPT"  Content="{DynamicResource Gx}" IsChecked="True" IsEnabled="False"/>
+                <CheckBox Template="{DynamicResource CheckBoxTemplate}" Margin="30,0,0,0" Name="CheckBoxaudio"  ToolTip="录制声音" Content="{DynamicResource Gx}" IsChecked="True" IsEnabled="False"/>
+                <CheckBox Template="{DynamicResource CheckBoxTemplate}" Margin="30,0,0,0" Name="CheckBoxVideo" ToolTip="录制视频" Content="{DynamicResource Gx}" Click="CheckBoxVideo_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,0">
+            <Border Margin="30,15,15,15" BorderThickness="1" BorderBrush="#dedede">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24*"/>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Label HorizontalAlignment="Left" Content="录音器"/>
+                        <ComboBox Name="comboBoxSound"  HorizontalAlignment="Right"  Width="200"/>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Label HorizontalAlignment="Left" Content="音频通道"/>
+                        <ComboBox Name="comboBoxChannels" HorizontalAlignment="Right" Width="200" />
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Label HorizontalAlignment="Left" Content="采样频率"/>
+                        <ComboBox Name="comboBoxSampleRate" HorizontalAlignment="Right" Width="200"/>
+                    </Grid>
+
+                </Grid>
+            </Border>
+            <Button Template="{DynamicResource ImgTxtBtnTemplate1}" Content="{DynamicResource Sy}" Height="40" ToolTip="声音设置"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,0,0,0"/>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,10,0,0">
+            <Border Margin="30,15,15,15" BorderThickness="1" BorderBrush="#eeeeee">
+                <Grid Name="VideoSettingsGrid" IsEnabled="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24*"/>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Label HorizontalAlignment="Left" Content="摄像头"/>
+                        <ComboBox Name="comboBoxCamera" HorizontalAlignment="Right" Width="200" SelectionChanged="comboBoxCamera_SelectionChanged"/>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Label HorizontalAlignment="Left" Content="分辨率"/>
+                        <ComboBox Name="comboBoxResolution" HorizontalAlignment="Right" Width="200" />
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Label HorizontalAlignment="Left" Content="帧速率"/>
+                        <ComboBox Name="comboBoxFrameRate" HorizontalAlignment="Right" Width="200"/>
+                    </Grid>
+                </Grid>
+            </Border>
+            <Button Template="{DynamicResource ImgTxtBtnTemplate1}" Content="{DynamicResource Sp}" Height="40" ToolTip="视频设置"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,0,0,0"/>
+        </Grid>
+
+        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+            <Button Width="100"   Content="开始" Name="buttonStart" HorizontalAlignment="Right" Margin="0,0,30,0" Click="buttonStart_Click" Background="#0391db" BorderThickness="0" BorderBrush="#0391db" Foreground="White" IsDefault="True"/>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2">
+            <Button Width="100" Background="White" Content="退出" BorderBrush="#d1d1d1" Name="buttonStop" HorizontalAlignment="Left" Margin="30,0,0,0" Click="buttonStop_Click"/>
+        </Grid>-->
+
+    </Grid>
+</Window>
+

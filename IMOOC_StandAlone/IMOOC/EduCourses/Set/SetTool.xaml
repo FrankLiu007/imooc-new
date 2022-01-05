@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="IMOOC.EduCourses.Set.SetTool"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IMOOC.EduCourses.Set"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+              d:DesignHeight="40" d:DesignWidth="1000">
+    <Grid Height="40" Width="auto">
+        <StackPanel Orientation="Horizontal" Name="InsertMenuTool"  Background="#F5F6F7" Grid.ColumnSpan="2" >
+            <Button  Click="SystemSettings_Click" Style="{StaticResource ImgTxtBtnTemplate}" Content="{DynamicResource SetSystem1}" Background="Black"  ToolTip="设置"/>
+            <Button x:Name="PPTConvert"  Click="PPTConvert_Click"  Style="{StaticResource ImgTxtBtnTemplate}" Content="{DynamicResource browsePPT1}" Background="Black"  ToolTip="PPT转换"/>
+            <Button  Click="AboutUs_Click" Style="{StaticResource ImgTxtBtnTemplate}" Content="{DynamicResource Email}" Background="Black"  ToolTip="关于"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

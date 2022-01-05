@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="IMOOC.EduCourses.Insert.InsertTool"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IMOOC.EduCourses.Insert"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="1000">
+    <Grid Height="40" Width="auto">
+        <StackPanel Orientation="Horizontal" Name="InsertMenuTool"  Background="#F5F6F7" Grid.ColumnSpan="2" >
+            <Button x:Name="insertPic" Click="OpenImageBtn_Click"  Style="{StaticResource ImgTxtBtnTemplate}" Content="{DynamicResource image1}" Background="Black" ToolTip="插入图片"/>
+            <Button Content="insertCanvas" Visibility="Hidden" Click="insertCanvasBtn_Click" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,83 @@
+﻿<Window x:Class="IMOOC.EduCourses.Utils.AboutUsWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IMOOC.EduCourses.Utils"
+        mc:Ignorable="d"
+        Title="AboutUsWin" Height="320" Width="560" WindowStartupLocation="CenterScreen" WindowStyle="None" MouseDown="Window_MouseDown">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="181*"/>
+            <ColumnDefinition Width="211*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="35*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  VerticalAlignment="Top" Height="30" Margin="0,0,10,0">
+                <Button Content="{DynamicResource close3}"  Width="30"  Style="{StaticResource SmallImgBtnTemplate}" Click="Exit_Click" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.RowSpan="2">
+            <Viewbox Width="200" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="/Images/shanyun.png"/>
+            </Viewbox>
+        </Grid>
+        <Grid Grid.Column="1" Grid.RowSpan="2">
+            <Grid.Resources>
+                <Style TargetType="TextBox">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Foreground" Value="#060606"/>
+                    <Setter Property="Margin" Value="10,0,0,0"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="IsReadOnly" Value="True"/>
+                </Style>
+            </Grid.Resources>
+            <StackPanel Margin="32,40,0,0">
+                <StackPanel Orientation="Horizontal" Height="40">
+                    <Viewbox Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Label Content="{StaticResource QQ}"/>
+                    </Viewbox>
+                    <TextBox Text="620247615 (QQ群)" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="40">
+                    <Viewbox Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Label Content="{StaticResource Phone}"/>
+                    </Viewbox>
+                    <TextBox Text="18901194191" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="40">
+                    <Viewbox Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Label Content="{StaticResource Email}"/>
+                    </Viewbox>
+                    <TextBox Text="284693929@qq.com" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="40">
+                    <Viewbox Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Label Content="{StaticResource Company}"/>
+                    </Viewbox>
+                    <TextBox Text="武汉市知新融和科技有限公司" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="40">
+                    <Viewbox Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Label Content="{StaticResource Website}"/>
+                    </Viewbox>
+                    <TextBox Text="http://shanyun.whalew.com" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="40">
+                    <Viewbox Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Label Content="{StaticResource Edition}"/>
+                    </Viewbox>
+                    <TextBox Text="内部测试版 2.3" Width="200"/>
+                </StackPanel>
+            </StackPanel>
+
+
+        </Grid>
+
+    </Grid>
+</Window>

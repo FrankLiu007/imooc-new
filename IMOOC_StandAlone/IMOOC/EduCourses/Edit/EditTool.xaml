@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="IMOOC.EduCourses.Edit.EditTool"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IMOOC.EduCourses.Edit"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="1000">
+    <Grid Height="40" Width="auto">
+        <StackPanel Background="#F5F6F7" Orientation="Horizontal" Name="EditMenuTool" Grid.ColumnSpan="2" >
+            <Button x:Name="ButtonCutSelection" Content="{StaticResource cut1}" Background="Black" Style="{StaticResource ImgTxtBtnTemplate}" Click="ButtonCutSelection_Click" ToolTip="剪切"/>
+            <Button x:Name="ButtonCopySelection" Content="{StaticResource copy1}" Background="Black"  Style="{StaticResource ImgTxtBtnTemplate}" Click="ButtonCopySelection_Click" ToolTip="复制"/>
+            <Button Content="{DynamicResource paste1}" Background="Black" Style="{StaticResource ImgTxtBtnTemplate}"  Click="ButtonPasteSelection_Click" ToolTip="粘贴" />
+            <Separator Background="#C2C2C2">
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+            <Button Content="{DynamicResource undo1}" Background="Black" Style="{StaticResource ImgTxtBtnTemplate}"  Click="Undo" ToolTip="撤销"/>
+            <Button Content="{DynamicResource redo1}" Background="Black" Style="{StaticResource ImgTxtBtnTemplate}"  Click="Redo"  ToolTip="重做"/>
+            <Separator Background="#C2C2C2">
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+            <Button Content="{DynamicResource selectArea1}" Background="Black" Style="{StaticResource ImgTxtBtnTemplate}" Click="ButtonSelectArea_Click" ToolTip="拉框选择"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

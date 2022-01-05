@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="IMOOC.EduCourses.PPTModule.MyPPT"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IMOOC.EduCourses.PPTModule"
+             mc:Ignorable="d" Width="auto" Height="auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Name="PPTToolGrid">
+            <!--<local:PptTool x:Name="pptTool"/>-->
+        </Grid>
+        <Grid Grid.Row="1"/>
+        <Grid Grid.Row="2" >
+            
+        </Grid>
+    </Grid>
+</UserControl>

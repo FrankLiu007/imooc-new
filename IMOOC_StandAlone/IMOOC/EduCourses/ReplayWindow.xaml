@@ -1,0 +1,87 @@
+﻿<Window x:Class="IMOOC.EduCourses.ReplayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IMOOC.EduCourses"
+        mc:Ignorable="d"
+        WindowState="Maximized" 
+        Title="ReplayWindow" Height="800" Width="1200" Topmost="False"  Background="#00FFFFFF" AllowsTransparency="True" WindowStyle="None">
+    <Grid>
+        <Grid.Resources>
+            <local:ReplayVisibilityConverter x:Key="visiConverter"/>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <local:CustomInkCanvas Strokes="{Binding CurrPage.Strokes}" AllChild="{Binding CurrPage.AllChild}" EditingMode="None" Visibility="{Binding CurrView,Converter={StaticResource visiConverter},ConverterParameter=BanShu}"/>
+        <InkCanvas Strokes="{Binding CurrPPTStrokes}" Visibility="{Binding CurrView,Converter={StaticResource visiConverter},ConverterParameter=PPTPlaying}" EditingMode="None" Background="#11ffffff"/>
+        <!--<WrapPanel Background="DarkGray" Visibility="{Binding CurrView,Converter={StaticResource visiConverter},ConverterParameter=PPTBrowse}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"  >
+                <ListBox Name="PPTPreview" Background="DarkGray" ItemsSource="{Binding SlideList}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                     VerticalAlignment="Top">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="4"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate >
+                            <StackPanel Margin="25,25,25,25" Height="auto" VerticalAlignment="Top"   >
+                                <Viewbox>
+                                    <Image Source="{Binding PageImage,Converter={StaticResource imageConverter}}"/>
+                                </Viewbox>
+                                <TextBlock Text="{Binding PageNum}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </WrapPanel>
+        <Grid Visibility="{Binding CurrView,Converter={StaticResource visiConverter},ConverterParameter=PPTCommon}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListBox  ItemsSource="{Binding SlideList}" 
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="DarkGray">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate >
+                            <StackPanel Margin="5,5,5,5" Orientation="Vertical">
+                                <Viewbox>
+                                    <Image Source="{Binding PageImage,Converter={StaticResource imageConverter}}"/>
+                                </Viewbox>
+                                <TextBlock Text="{Binding PageNum}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+            <GridSplitter HorizontalAlignment="Right" Width="5"/>
+            <Grid Grid.Column="1" Background="DarkGray" Name="ddd">
+                <Image Source="{Binding CurrSlideImage}" Margin="20,0,20,0"/>
+            </Grid>
+        </Grid>-->
+        <MediaElement Name="mediaPlayer" LoadedBehavior="Manual" UnloadedBehavior="Stop" Width="320" Height="180" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
+        <ProgressBar Name="progressBar" Value="{Binding CurrTime}" MouseLeftButtonDown="progressBar_MouseLeftButtonDown" Grid.Row="1"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Background="White">
+            <TextBlock Text="页面index" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding CurrPageIndex}" Width="30" Margin="5" VerticalAlignment="Center"/>
+            <TextBlock Text="速率" VerticalAlignment="Center" />
+            <TextBlock Name="rateTb" Text="{Binding Rate,Mode=TwoWay}" Width="90" Margin="5" VerticalAlignment="Center"/>
+            <Button Content="快进" Click="innnBtn_click" Margin="5"/>
+            <ToggleButton Name="shiftBtn" IsChecked="{Binding IsShifting}" Content="shift" Margin="5"/>
+            <Button Content="开始" Command="{Binding StartCommand}" Click="Player_Click" Margin="5"/>
+            <Button Content="停止" Command="{Binding StopCommand}" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>

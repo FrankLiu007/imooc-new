@@ -1,0 +1,7 @@
+x86/Debug/IMOOC*
+x86/Release/IMOOC*
+*/obj/
+error_log.txt
+packages/
+.vs/
+/IMOOC.VC.db

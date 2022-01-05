@@ -1,0 +1,276 @@
+﻿<UserControl x:Class="IMOOC.EduCourses.BanshuTool"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IMOOC.EduCourses"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="1100" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <local:CurrPageIndexAddOneConverte x:Key="currPageIndexAddOne"/>
+    </UserControl.Resources>
+    <Grid Height="40" Width="auto" VerticalAlignment="Bottom">
+        <StackPanel  Name="BanshuMenuTool" Orientation="Horizontal" Background="#F5F6F7"
+                      Grid.ColumnSpan="2">
+            <CheckBox Content="{StaticResource FalseCheck}" ToolTip="只能笔写" Background="Black" Name="checkStylus" Style="{StaticResource CheckBoxTemplate}"  IsChecked="False" Click="CheckBox_Checked"/>
+            <!--<Button Name="SetBackGroundBtn" Content="{DynamicResource SetBackground}" Click="SetBackGroundBtn_Click" Background="Black" Style="{StaticResource ImgTxtBtnTemplate}" ToolTip="背景" />-->
+            <StackPanel Name="colorSp" Orientation="Horizontal" Button.Click="colorSp_Click" Background="#F5F6F7">
+                <StackPanel.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="Height" Value="{Binding ElementName=BanshuMenuTool,Path=ActualHeight}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Template" Value="{DynamicResource colorBtn}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <ControlTemplate x:Key="colorBtn">
+                        <Grid>
+                            <Rectangle Fill="{TemplateBinding BorderBrush}" Margin="2"/>
+                            <!--<Ellipse Margin="5" Fill="{TemplateBinding Background}"/>-->
+                            <Rectangle Margin="5,10,5,10" Fill="{TemplateBinding Background}">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="#999999" BlurRadius="10" Direction="270" ShadowDepth="5" Opacity="0.3" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+                        </Grid>
+                    </ControlTemplate>
+                </StackPanel.Resources>
+                <RadioButton Name="ButtonColor1"  Width="40" GroupName="group1" Background="Black" />
+                <RadioButton Name="ButtonColor2"  Width="40" GroupName="group1" Background="White" IsChecked="True"/>
+                <RadioButton Name="ButtonColor3"  Width="40" GroupName="group1" Background="Violet" />
+                <RadioButton Name="ButtonColor4"  Width="40" GroupName="group1" Background="Cyan" />
+                <RadioButton Name="selectColorBtn"  Width="40" GroupName="group1" >
+                    <RadioButton.Background>
+                        <VisualBrush Stretch="Fill">
+                            <VisualBrush.Visual>
+                                <Image Source="/Images/palette.png"/>
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </RadioButton.Background>
+                </RadioButton>
+            </StackPanel>
+            <!--<Viewbox>
+                <Button BorderBrush="Transparent"  BorderThickness="0" Background="#F5F6F7" Name="selectColorBtn" Content="{DynamicResource copy}" Click="SelectColorBtn_Click" ToolTip="选色板"/>
+            </Viewbox>-->
+            <Separator Background="#C2C2C2">
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+            <Viewbox>
+                <Button BorderBrush="Transparent" Background="#F5F6F7"  Name="ButtonMinus" Content="{StaticResource minus}" Click="ButtonMinus_Click"  />
+            </Viewbox>
+
+            <local:CustomButton Margin="5,7" Height="26" x:Name="thickness" BorderBrush="#aeaeae"  Click="thickness_Click"/>
+
+            <Viewbox>
+                <Button BorderBrush="Transparent" Name="ButtonPlus" Background="#F5F6F7" Content="{StaticResource plus}" Click="ButtonPlus_Click"/>
+            </Viewbox>
+            <Separator>
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+
+            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center" >
+                <StackPanel.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Template" Value="{DynamicResource toolTemplate}"/>
+                        <Setter Property="GroupName" Value="toolgroup"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <!--<Setter Property="BorderBrush" Value="DarkGray"/>-->
+                                <Setter Property="BorderThickness" Value="2"/>
+                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <ControlTemplate x:Key="toolTemplate" TargetType="RadioButton">
+                        <Grid>
+                            <Rectangle Fill="{TemplateBinding BorderBrush}"/>
+                            <Border BorderThickness="20" BorderBrush="{TemplateBinding BorderBrush}"/>
+                            <ContentControl Margin="100"  Content="{TemplateBinding Content}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </StackPanel.Resources>
+                <Viewbox Margin="2">
+                    <RadioButton x:Name="PencilStyle" Content="{DynamicResource pencil1}" IsChecked="True"  Click="ButtonPencil_Click"  ToolTip="铅笔"/>
+                </Viewbox>
+                <Viewbox Margin="2">
+                    <RadioButton x:Name="HighlightStyle"  Content="{DynamicResource highLighter1}"  Click="ButtonHilight_Click" ToolTip="高亮笔"/>
+                </Viewbox>
+
+                <Viewbox Margin="2">
+                    <RadioButton x:Name="EraserStyle" Content="{DynamicResource lineEraser1}" Click="ButtonLineEraser_Click" ToolTip="橡皮" />
+                </Viewbox>
+
+                <Viewbox Margin="2">
+                    <RadioButton x:Name="SelectStyle" Content="{DynamicResource selectArea1}" Click="ButtonSelectArea_Click" ToolTip="拉框选择"/>
+                </Viewbox>
+            </StackPanel>
+            <Separator Background="#C2C2C2">
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+            
+            <Separator Background="#C2C2C2">
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+            <!--<Button Background="Transparent" BorderBrush="Transparent" Content="插入新页" FontSize="18" Click="ButtonNewNextPreviousPage_Click"
+                    Command="{Binding NewPageCommand}"/>-->
+            <Button Name="CreateNewPage" Content="{DynamicResource CreatePage}" Background="Black" Command="{Binding NewPageCommand}" Click="ButtonNewNextPreviousPage_Click" Style="{StaticResource ImgTxtBtnTemplate}" ToolTip="插页" />
+
+            <StackPanel Name="NewCoursePageUpDownStackPanel"  Orientation="Horizontal" Visibility="Visible">
+                <Button Width="40" BorderThickness="0" Style="{StaticResource ImgBtnTemplate}" Background="Transparent"  Click="ButtonNewNextPreviousPage_Click"
+                   Content="{DynamicResource arrowRight1}" Command="{Binding PreviousPageCommand}" />
+                <Label Content="{Binding CurrPageIndex,Converter={StaticResource currPageIndexAddOne}}" Foreground="#444444" Width="28" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Label Content="/" Foreground="#444444" Width="18" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Label Content="{Binding CurrCourse.AllPage.Count}" Foreground="#444444" Width="28" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Button  Width="40" BorderThickness="0"  Style="{StaticResource ImgBtnTemplate}" Background="Transparent"  Click="ButtonNewNextPreviousPage_Click"
+                      Content="{DynamicResource arrowLeft1}"  Command="{Binding NextPageCommand}"/>
+            </StackPanel>
+            <Separator Background="#C2C2C2">
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+            <!--<StackPanel Name="OldCoursePageUpDownStackPanel" Orientation="Horizontal" Visibility="Visible">
+                <Button Width="50" BorderThickness="0" Style="{StaticResource ImgBtnTemplate}" Background="Transparent" Click="PageUp_Click" 
+                   Content="{DynamicResource arrowRight1}"  />
+                --><!--<Viewbox>
+                    <TextBlock Text="1" Width="30" Foreground="#444444" FontSize="20" TextAlignment="Center"/>
+                </Viewbox>--><!--
+                <Label  Name="OldCourseText"  Foreground="#444444" Width="60" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Button  Width="50" BorderThickness="0"  Style="{StaticResource ImgBtnTemplate}" Background="Transparent"  Click="PageDown_Click"
+                      Content="{DynamicResource arrowLeft1}" />
+            </StackPanel>-->
+            <Button Content="{DynamicResource paste1}" Background="Black" Style="{StaticResource ImgTxtBtnTemplate}"  Click="ButtonPasteSelection_Click" ToolTip="粘贴" />
+            <Button Content="{DynamicResource undo1}" Background="Black" Style="{StaticResource ImgTxtBtnTemplate}"  Click="Undo" ToolTip="撤销"/>
+        </StackPanel>
+
+        <Popup Name="thicknessPp" StaysOpen="False" IsOpen="False"  PlacementTarget="{Binding ElementName=thickness}" HorizontalOffset="0" Width="80" AllowsTransparency="True">
+            <Border BorderThickness="1,0,1,1.5" BorderBrush="#C6C6C6" Margin="0"  >
+                <WrapPanel Name="thicknessSp" Background="White"  HorizontalAlignment="Center" Width="80" Button.Click="thicknessPp_Click">
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                </WrapPanel>
+            </Border>
+        </Popup>
+
+        <Popup Name="colorPp" StaysOpen="False" PlacementTarget="{Binding ElementName=selectColorBtn}" AllowsTransparency="True">
+            <Border BorderThickness="1" BorderBrush="Gray">
+                <WrapPanel Name="colorWp" Background="White" Width="160" Button.Click="colorWp_Click">
+                    <WrapPanel.Resources>
+                        <ControlTemplate x:Key="ellipseBtn">
+                            <Rectangle Width="auto" Height="auto" Fill="{TemplateBinding Background}"
+                                     StrokeThickness="3" Stroke="{TemplateBinding BorderBrush}"/>
+                        </ControlTemplate>
+                        <Style TargetType="RadioButton">
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Width" Value="30"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Template" Value="{DynamicResource ellipseBtn}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="DarkGray"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="BorderBrush" Value="DimGray"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </WrapPanel.Resources>
+                    <RadioButton Background="Red"/>
+                    <RadioButton Background="Orange"/>
+                    <RadioButton Background="Gold"/>
+                    <RadioButton Background="Blue"/>
+                    <RadioButton Background="GreenYellow"/>
+                    <RadioButton Background="DarkGreen"/>
+                    <RadioButton Background="Cyan"/>
+                    <RadioButton Background="LightSkyBlue"/>
+                    <RadioButton Background="SteelBlue"/>
+                    <RadioButton Background="MediumPurple"/>
+                    <RadioButton Background="Violet"/>
+                    <RadioButton Background="Sienna"/>
+                    <RadioButton Background="DimGray"/>
+                    <RadioButton Background="LightSlateGray"/>
+                    <RadioButton Background="LightGray"/>
+                    <RadioButton Background="Indigo"/>
+                </WrapPanel>
+            </Border>
+        </Popup>
+        <Popup Name="SetBackgroundPp" StaysOpen="False" IsOpen="False"  PlacementTarget="{Binding ElementName=SetBackGroundBtn}" HorizontalOffset="0" Width="150">
+            <Popup.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="Height" Value="65"/>
+                    <Setter Property="Width" Value="140"/>
+                    <Setter Property="Margin" Value="5,3,5,0"/>
+                </Style>
+            </Popup.Resources>
+            <Border BorderThickness="1,0,1,1.5" BorderBrush="#C6C6C6" Margin="0" Style="{x:Null}" >
+                <WrapPanel Name="SetBackgroundSp" Background="White"  HorizontalAlignment="Center" Width="150" Border.MouseDown="SetBackgroundSp_MouseDown">
+                    <Border Name="greenBoard" BorderBrush="#C6C6C6" BorderThickness="1">
+                        <Border.Background>
+                            <RadialGradientBrush  
+                                 GradientOrigin="0.5,0.5" Center="0.5,0.5" 
+                                 RadiusX="0.5" RadiusY="0.5">
+                                <GradientStop Color="#526244" Offset="0" />
+                                <GradientStop Color="#333F2A" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <Border>
+                        <Border.Background>
+                            <RadialGradientBrush  
+                                 GradientOrigin="0.5,0.5" Center="0.5,0.5" 
+                                 RadiusX="0.5" RadiusY="0.5">
+                                <GradientStop Color="#272A28" Offset="0" />
+                                <GradientStop Color="#232425" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <Border BorderBrush="#C6C6C6" BorderThickness="1.5">
+                        <Border.Background>
+                            <RadialGradientBrush  
+                                 GradientOrigin="0.5,0.5" Center="0.5,0.5" 
+                                 RadiusX="0.5" RadiusY="0.5">
+                                <GradientStop Color="#FFFEFF" Offset="0" />
+                                <GradientStop Color="#FFFEFF" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <Border>
+                        <Border.Background>
+                            <RadialGradientBrush  
+                                 GradientOrigin="0.5,0.5" Center="0.5,0.5" 
+                                 RadiusX="0.5" RadiusY="0.5">
+                                <GradientStop Color="#2E4441" Offset="0" />
+                                <GradientStop Color="#253635" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Border.Background>
+                    </Border>
+                </WrapPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

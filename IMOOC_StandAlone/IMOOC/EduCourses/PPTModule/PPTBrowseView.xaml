@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="IMOOC.EduCourses.PPTModule.PPTBrowseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:local="clr-namespace:IMOOC.EduCourses"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <WrapPanel Background="DarkGray">
+        <ScrollViewer VerticalScrollBarVisibility="Auto"  >
+            <ListBox Name="PPTPreview" Background="DarkGray" ItemsSource="{Binding CurrSlideList}" SelectedIndex="{Binding CurrSlideIndex}" MouseUp="stack_MouseUp"
+                     PreviewMouseWheel="SlideListBox_PreviewMouseWheel" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Top">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate >
+                        <StackPanel Margin="25,25,25,25" Height="auto" VerticalAlignment="Top">
+                            <Viewbox>
+                                <Image Source="{Binding Path=PageImage}"/>
+                            </Viewbox>
+                            <TextBlock Text="{Binding PageNum}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+        <Popup Name="contextPopup" StaysOpen="False" Placement="MousePoint">
+            <Button Content="放映此PPT" Click="Button_Click" Command="{Binding PlayCurrSlideCommand}" FontSize="20"/>
+        </Popup>
+    </WrapPanel>
+</UserControl>

@@ -1,0 +1,284 @@
+﻿<UserControl x:Class="IMOOC.EduCourses.PPTModule.PptTool"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IMOOC.EduCourses"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.Resources>
+            <local:CurrPageIndexAddOneConverte x:Key="currPageIndexAddOne"/>
+        </Grid.Resources>
+        <StackPanel Orientation="Horizontal" Name="PPTMenuTool"  Background="#F5F6F7" Grid.ColumnSpan="2" >
+            <StackPanel.Resources>
+                <Style TargetType="RadioButton">
+                    <Setter Property="Height" Value="{Binding ElementName=PPTMenuTool,Path=ActualHeight}"/>
+                    <Setter Property="Width" Value="{Binding ElementName=PPTMenuTool,Path=ActualHeight}"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Template" Value="{DynamicResource PPTcolorBtn}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="DarkGray"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="BorderBrush" Value="DarkGray"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <ControlTemplate x:Key="PPTcolorBtn">
+                    <Grid>
+                        <Rectangle Fill="{TemplateBinding BorderBrush}"/>
+                        <Ellipse Margin="5" Fill="{TemplateBinding Background}"/>
+                    </Grid>
+                </ControlTemplate>
+
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#F5F6F7"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+
+            </StackPanel.Resources>
+            <Button x:Name="OpenPPT" Content="{DynamicResource fileOpen1}" Background="Black" Style="{StaticResource ImgTxtBtnTemplate}" ToolTip="打开" Click="OpenPPT_Click"/>
+            <ComboBox Name="PPTChange" Text="PPT名称" Width="100" Background="Transparent" ItemsSource="{Binding PptNameList}" SelectedIndex="{Binding CurrPptIndex,Mode=TwoWay}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ComboBoxItem}">
+                        <Setter Property="Height" Value="{Binding ActualHeight, ElementName=PPTChange}"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+            <Button Name="Close" Content="{DynamicResource pptIcon1}" Style="{StaticResource ImgTxtBtnTemplate}" Background="Black" ToolTip="关闭当前"  Command="{Binding ClosePPTCommand}"/>
+
+            <Separator>
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+
+            <Button x:Name="jietu" Content="{DynamicResource screenshot1}" Background="Black" Style="{StaticResource ImgTxtBtnTemplate}" ToolTip=" 截图" Click="JieTuPPT" />
+            <Separator>
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+
+            <StackPanel Name="ViewerPanel" Orientation="Horizontal" VerticalAlignment="Center" Background="#F5F6F7">
+                <StackPanel.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Template" Value="{DynamicResource toolTemplate}"/>
+                        <Setter Property="GroupName" Value="toolgroup"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <ControlTemplate x:Key="toolTemplate" TargetType="RadioButton">
+                        <Grid Name="ImgTxtBtnGrid" Background="#F5F6F7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Margin="6,5,5,5" Width="22">
+                                <ContentControl Content="{TemplateBinding Content}"/>
+                            </Viewbox>
+                            <TextBlock Name="text" Text="{TemplateBinding ToolTip}" Foreground="{TemplateBinding Background}"  FontSize="14" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ImgTxtBtnGrid"  Property="Background" Value="DarkGray"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="text" Property="Foreground" Value="DarkGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </StackPanel.Resources>
+
+                <!--<RadioButton Name="ButtonCommonView" GroupName="group2" Content="{DynamicResource commonView1}" Background="Black"  ToolTip="普通" Command="{Binding CommonViewCommand}"/>
+                <RadioButton Name="ButtonBrowseView" GroupName="group2"   Content="{DynamicResource browsePPT1}" Background="Black"  ToolTip="预览" Command="{Binding BrowseViewCommand}" />
+                <RadioButton Name="ButtonPlayView" GroupName="group2"  Content="{DynamicResource pptPlay1 }" Background="Black"  ToolTip="放映" Command="{Binding PlayCurrSlideCommand}" IsEnabled="False"/>-->
+                <Separator>
+                    <Separator.LayoutTransform>
+                        <RotateTransform            Angle="90" />
+                    </Separator.LayoutTransform>
+                </Separator>
+
+            </StackPanel>
+
+            <Button Name="plus" Width="50" BorderThickness="0" Style="{StaticResource ImgBtnTemplate}" Background="Transparent"  Content="{DynamicResource arrowRight1}" Command="{Binding PreviousPPTCommand}" />
+            <Viewbox>
+                <StackPanel Orientation="Horizontal" Background="#F5F6F7">
+                    <TextBlock Text="{Binding CurrPPT.CurrSlideIndex,Converter={StaticResource currPageIndexAddOne}}" Foreground="Black" Width="22" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <Label Content="/"/>
+                    <TextBlock Text="{Binding CurrPPT.SlideCount}" Foreground="Black" Width="22" VerticalAlignment="Center" TextAlignment="Center"/>
+                </StackPanel>
+            </Viewbox>
+            <Button Name="minus" Width="50" BorderThickness="0"  Style="{StaticResource ImgBtnTemplate}" Background="Transparent"  Content="{DynamicResource arrowLeft1}"  Command="{Binding NextPPTCommand}"/>
+
+            <Separator Background="#C2C2C2">
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+            <StackPanel Name="colorSp" Orientation="Horizontal" Button.Click="colorSp_Click" Background="#F5F6F7">
+                <StackPanel.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Template" Value="{DynamicResource colorBtn}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <ControlTemplate x:Key="colorBtn">
+                        <Grid>
+                            <Rectangle Fill="{TemplateBinding BorderBrush}" Margin="2"/>
+                            <!--<Ellipse Margin="5" Fill="{TemplateBinding Background}"/>-->
+                            <Rectangle Margin="5,10,5,10" Fill="{TemplateBinding Background}">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="#999999" BlurRadius="10" Direction="270" ShadowDepth="5" Opacity="0.3" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+                        </Grid>
+                    </ControlTemplate>
+                </StackPanel.Resources>
+                <RadioButton Name="ButtonColor1"  Width="40" GroupName="group2" Background="Black" >
+                </RadioButton>
+                <RadioButton Name="ButtonColor2"  Width="40" GroupName="group2" Background="White" />
+                <RadioButton Name="ButtonColor3"  Width="40" GroupName="group2" Background="Blue" />
+                <RadioButton Name="ButtonColor4"  Width="40" GroupName="group2" Background="Red" IsChecked="True"/>
+                <RadioButton Name="selectColorBtn"  Width="40" GroupName="group2" >
+                    <RadioButton.Background>
+                        <VisualBrush Stretch="Fill">
+                            <VisualBrush.Visual>
+                                <Image Source="/Images/palette.png"/>
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </RadioButton.Background>
+                </RadioButton>
+            </StackPanel>
+            <Separator Background="#C2C2C2">
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+            
+            <local:CustomButton Margin="5,7" Height="26" x:Name="thickness" BorderBrush="#aeaeae"  Click="thickness_Click"/>
+
+            <Separator Background="#C2C2C2">
+                <Separator.LayoutTransform>
+                    <RotateTransform            Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+
+            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center" Background="#F5F6F7">
+                <StackPanel.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+
+                        <Setter Property="Template" Value="{DynamicResource toolTemplate}"/>
+                        <Setter Property="GroupName" Value="toolgroup"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <!--<Setter Property="BorderBrush" Value="DarkGray"/>-->
+                                <Setter Property="BorderThickness" Value="2"/>
+                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <ControlTemplate x:Key="toolTemplate" TargetType="RadioButton">
+                        <Grid>
+                            <Rectangle Fill="{TemplateBinding BorderBrush}"/>
+                            <Border BorderThickness="20" BorderBrush="{TemplateBinding BorderBrush}"/>
+                            <ContentControl Margin="100"  Content="{TemplateBinding Content}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </StackPanel.Resources>
+                <Viewbox Margin="2">
+                    <RadioButton  Content="{DynamicResource pencil1}" IsChecked="True"  Click="ButtonPencil_Click"  ToolTip="铅笔"/>
+                </Viewbox>
+                <Viewbox Margin="2">
+                    <RadioButton Content="{DynamicResource highLighter1}"  Click="ButtonHilight_Click" ToolTip="高亮笔"/>
+                </Viewbox>
+
+                <Viewbox Margin="2">
+                    <RadioButton Content="{DynamicResource lineEraser1}" Click="ButtonLineEraser_Click" ToolTip="橡皮" />
+                </Viewbox>
+
+                <Viewbox Margin="2">
+                    <RadioButton x:Name="SelectStyle" Content="{DynamicResource selectArea1}" Click="ButtonSelectArea_Click" ToolTip="拉框选择"/>
+                </Viewbox>
+            </StackPanel>
+            
+        </StackPanel>
+
+        <Popup Name="thicknessPp" StaysOpen="False" IsOpen="False"  PlacementTarget="{Binding ElementName=thickness}" HorizontalOffset="0" Width="80">
+            <Border BorderThickness="1,0,1,1.5" BorderBrush="#C6C6C6" Margin="0"  >
+                <WrapPanel Name="thicknessSp" Background="White"  HorizontalAlignment="Center" Width="80" Button.Click="thicknessPp_Click">
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                    <local:CustomButton/>
+                </WrapPanel>
+            </Border>
+        </Popup>
+        <Popup Name="colorPp" StaysOpen="False" PlacementTarget="{Binding ElementName=selectColorBtn}" >
+            <Border BorderThickness="1" BorderBrush="Gray">
+                <WrapPanel Name="colorWp" Background="White" Width="160" Button.Click="colorWp_Click">
+                    <WrapPanel.Resources>
+                        <ControlTemplate x:Key="ellipseBtn">
+                            <Rectangle Width="auto" Height="auto" Fill="{TemplateBinding Background}"
+                                     StrokeThickness="3" Stroke="{TemplateBinding BorderBrush}"/>
+                        </ControlTemplate>
+                        <Style TargetType="RadioButton">
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Width" Value="30"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Template" Value="{DynamicResource ellipseBtn}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="DarkGray"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="BorderBrush" Value="DimGray"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </WrapPanel.Resources>
+                    <RadioButton Background="Red"/>
+                    <RadioButton Background="Orange"/>
+                    <RadioButton Background="Gold"/>
+                    <RadioButton Background="Yellow"/>
+                    <RadioButton Background="GreenYellow"/>
+                    <RadioButton Background="DarkGreen"/>
+                    <RadioButton Background="Cyan"/>
+                    <RadioButton Background="LightSkyBlue"/>
+                    <RadioButton Background="SteelBlue"/>
+                    <RadioButton Background="MediumPurple"/>
+                    <RadioButton Background="Violet"/>
+                    <RadioButton Background="Sienna"/>
+                    <RadioButton Background="DimGray"/>
+                    <RadioButton Background="LightSlateGray"/>
+                    <RadioButton Background="LightGray"/>
+                    <RadioButton Background="Indigo"/>
+                </WrapPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>
